@@ -1,4 +1,4 @@
-#include "joueur.cpp"
+#include "joueur.h"
 
 class jeu {
 private: 
@@ -28,24 +28,45 @@ public:
 	//Fonction de déroulement du jeu
 	void start() {
 
+		//création des joueurs
 		joueur bot = joueur("Grille.txt");
 		joueur j1 = joueur("Grille.txt");
 
+		//nombre de tour
 		int compt = 0;
+
+		//le jeu commence et continue tant qu'aucun des joueurs n'a gagné
 		while (!bot.Get_winner() && !j1.Get_winner()) {
+
 			compt += 1;
 			cout << compt << endl;
+
+			//tour du bot
 			bot.Play_bot(j1);
 			cout << "bot" << endl;
 			bot.Get_grid().Affichage();
+
+			//tour du j1
 			j1.Play_bot(bot);
 			cout << "j1" << endl;
 			j1.Get_grid().Affichage();
 		}
+
+
+		//fin du jeu
 		bot.Get_grid().Affichage();
 		j1.Get_grid().Affichage();
-		if (bot.Get_winner()) { winner = bot; }
-		else { winner = j1; }
+
+
+		//affichage du gagnant
+		if (bot.Get_winner()) { 
+			winner = bot; 
+			cout << "le gagnant est le bot";
+		}
+		else { 
+			winner = j1; 
+			cout << "le gagnant est le j1"<<endl; 
+		}
 		
 	};
 };
